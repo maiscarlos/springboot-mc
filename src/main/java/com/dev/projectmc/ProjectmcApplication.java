@@ -23,6 +23,8 @@ public class ProjectmcApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
+		Categoria cat3 = new Categoria(null, "Papelaria");
+		Categoria cat4 = new Categoria(null, "Suprimentos");
 
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 

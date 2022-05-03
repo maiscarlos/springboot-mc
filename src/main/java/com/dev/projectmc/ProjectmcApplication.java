@@ -1,7 +1,9 @@
 package com.dev.projectmc;
 
 import com.dev.projectmc.domain.Categoria;
+import com.dev.projectmc.domain.Produto;
 import com.dev.projectmc.repositories.CategoriaRepository;
+import com.dev.projectmc.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +16,8 @@ public class ProjectmcApplication implements CommandLineRunner {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectmcApplication.class, args);
@@ -26,7 +30,20 @@ public class ProjectmcApplication implements CommandLineRunner {
 		Categoria cat3 = new Categoria(null, "Papelaria");
 		Categoria cat4 = new Categoria(null, "Suprimentos");
 
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
+		Produto p1 = new Produto(null, "Computador", 2000.00);
+		Produto p2 = new Produto(null, "Impressora", 800.00);
+		Produto p3 = new Produto(null, "Mouse", 80.00);
+
+		cat1.getProdutos().addAll(Arrays.asList(p1, p3));
+		cat2.getProdutos().addAll(Arrays.asList(p2));
+
+		p1.getCategorias().addAll(Arrays.asList(cat1));
+		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
+		p3.getCategorias().addAll(Arrays.asList(cat1));
+
+
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 
 	}
 }

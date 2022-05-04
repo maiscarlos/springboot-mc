@@ -12,7 +12,7 @@ public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String email;
@@ -27,7 +27,11 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "telefone")
     private Set<String> telefones = new HashSet<>();
 
-    public Cliente(){}
+    @OneToMany(mappedBy = "cliente")
+    List<Pedido> pedidos = new ArrayList<>();
+
+    public Cliente() {
+    }
 
     public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
         this.id = id;
@@ -91,6 +95,14 @@ public class Cliente implements Serializable {
 
     public void setTelefones(Set<String> telefones) {
         this.telefones = telefones;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     @Override
